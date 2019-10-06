@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "367916153925",
+    "firebase_url": "https://movie-4daca.firebaseio.com",
+    "project_id": "movie-4daca",
+    "storage_bucket": "movie-4daca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:367916153925:android:65305fb4a6002bc450f72c",
+        "android_client_info": {
+          "package_name": "com.example.lifetime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "367916153925-8pcd194f2blmhgktj6nphe2uus4q4fuu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd-X4i3DTbNDRvviosEqZXtUcY56gvIr8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "367916153925-8pcd194f2blmhgktj6nphe2uus4q4fuu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
