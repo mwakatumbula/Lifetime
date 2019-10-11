@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lifetime/movieList.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
+import 'package:lifetime/pages/background.dart';
+import 'package:lifetime/pages/movieList.dart';
 
 void main() => runApp(MyApp());
 
@@ -23,11 +26,17 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-    @override
+  @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
     return Scaffold(
-      backgroundColor: Colors.black,
-      body: MovieBuilder(),
+      body: Stack(
+        children: <Widget>[
+          Background(),
+          MovieBuilder(),
+        ],
+      ),
     );
   }
 }
