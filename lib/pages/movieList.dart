@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
+import 'package:lifetime/pages/detailsPage.dart';
 
 class MovieBuilder extends StatefulWidget {
   @override
@@ -8,7 +10,6 @@ class MovieBuilder extends StatefulWidget {
 }
 
 class _MovieBuilderState extends State<MovieBuilder> {
-
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -34,45 +35,59 @@ class _MovieBuilderState extends State<MovieBuilder> {
                       Center(
                         child: Stack(
                           children: <Widget>[
-                            Card(
-                              color: Colors.grey,
-                              child: Column(
-                                children: <Widget>[
-                                  Stack(
-                                    children: <Widget>[
-                                      Image.network(
-                                        "${mypost['bg']}",
-                                        fit: BoxFit.cover,
-                                        width: 500,
-                                        height: 600,
-                                      ),
-                                      Align(
-                                        alignment: Alignment.topLeft,
-                                        child: Container(
-                                          height: screenHeight * 0.05,
-                                          color: Colors.black,
-                                          width: screenWidth * 0.2,
-                                          child: Center(
-                                            child: Text(
-                                              (index + 1).toString(),
-                                              style: TextStyle(
-                                                  fontFamily: "Index",
-                                                  fontSize: 50),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DetailsPage(
+                                              title: "${mypost["title"]}",
+                                              bg: "${mypost["bg"]}",
+                                            )),
+                                  );
+                                });
+                              },
+                              child: Card(
+                                color: Colors.black,
+                                child: Column(
+                                  children: <Widget>[
+                                    Stack(
+                                      children: <Widget>[
+                                        Image.network(
+                                          "${mypost['bg']}",
+                                          fit: BoxFit.cover,
+                                          width: 500,
+                                          height: 600,
+                                        ),
+                                        Align(
+                                          alignment: Alignment.topLeft,
+                                          child: Container(
+                                            height: screenHeight * 0.05,
+                                            color: Colors.black,
+                                            width: screenWidth * 0.2,
+                                            child: Center(
+                                              child: Text(
+                                                (index + 1).toString(),
+                                                style: TextStyle(
+                                                    fontFamily: "Index",
+                                                    fontSize: 50),
+                                              ),
                                             ),
                                           ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(top: 25.0),
-                                    child: Text("${mypost['title']}",
-                                        style: TextStyle(
-                                            fontFamily: "Title",
-                                            fontSize: 35,
-                                            fontWeight: FontWeight.bold)),
-                                  )
-                                ],
+                                      ],
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.only(top: 25.0),
+                                      child: Text("${mypost['title']}",
+                                          style: TextStyle(
+                                              fontFamily: "Title",
+                                              fontSize: 35,
+                                              fontWeight: FontWeight.bold)),
+                                    )
+                                  ],
+                                ),
                               ),
                             ),
                           ],
