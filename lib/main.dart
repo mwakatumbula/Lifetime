@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lifetime/pages/background.dart';
 import 'package:lifetime/pages/movieList.dart';
 
 void main() => runApp(MyApp());
