@@ -1,12 +1,13 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:lifetime/pages/background.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:lifetime/widgets/cutomClipper.dart';
 
 class DetailsPage extends StatefulWidget {
-  final String title;
   final String bg;
+  final int index;
 
-  DetailsPage({Key key, this.title, this.bg}) : super(key: key);
+  DetailsPage({Key key, this.bg, this.index}) : super(key: key);
 
   @override
   _DetailsPageState createState() => _DetailsPageState();
@@ -15,121 +16,37 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   @override
   Widget build(BuildContext context) {
-    final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body: Stack(
+      // backgroundColor: Colors.white,
+      body: ListView(
         children: <Widget>[
-          Background(),
-          CustomScrollView(
-            slivers: <Widget>[
-              SliverAppBar(
-                pinned: true,
-                expandedHeight: screenHeight * 0.5,
-                flexibleSpace: FlexibleSpaceBar(
-                  background: Image.network(
-                    widget.bg,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-              SliverList(
-                delegate: SliverChildListDelegate([
-                  Padding(
-                    padding: const EdgeInsets.only(top: 25.0),
-                    child: Center(
-                      child: Container(
-                        child: Text(
-                          widget.title,
-                          style: TextStyle(
-                              fontSize: 30,
-                              fontFamily: "Title",
-                              fontWeight: FontWeight.bold),
+          Stack(
+            children: <Widget>[
+              Container(
+                transform: Matrix4.translationValues(0.0, -50.0, 0.0),
+                child: Hero(
+                  tag: "movie${(widget.index)}",
+                  child: ClipShadowPath(
+                    clipper: CircularClipper(),
+                    shadow: Shadow(blurRadius: 20.0),
+                    child: ClipPath(
+                      child: CachedNetworkImage(
+                        imageUrl: widget.bg,
+                        height: 500,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => SpinKitRipple(
+                          color: Colors.white,
+                          size: 50,
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(
-                    height: screenHeight * 0.04,
-                  ),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: <Widget>[
-                        Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40))),
-                          child: Container(
-                            height: screenHeight * 0.1,
-                            width: screenWidth * 0.17,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Icon(FontAwesomeIcons.calendar),
-                                Text("Year")
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40))),
-                          child: Container(
-                            height: screenHeight * 0.1,
-                            width: screenWidth * 0.17,
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Icon(FontAwesomeIcons.imdb),
-                                Text("Rating")
-                              ],
-                            ),
-                          ),
-                        ),
-                        Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40))),
-                          child: Container(
-                            height: screenHeight * 0.1,
-                            width: screenWidth * 0.17,
-                            child: InkWell(
-                                borderRadius: BorderRadius.circular(40),
-                                child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: <Widget>[
-                                    Icon(FontAwesomeIcons.idBadge),
-                                    Text("Cast"),
-                                  ],
-                                ),
-                                onTap: () {
-                                  print("object");
-                                }),
-                          ),
-                        ),
-                      ]),
-                ]),
-              )
-            ],
-          ),
-        ],
-      ),
-      bottomNavigationBar: BottomAppBar(
-        child: Container(
-          height: screenHeight * 0.05,
-          child: Container(
-            child: Container(
-              color: Colors.red,
-              height: double.infinity,
-              child: Icon(
-                FontAwesomeIcons.youtube,
-                size: 35,
+                ),
               ),
-            ),
-          ),
-        ),
+            ],
+          )
+        ],
       ),
     );
   }

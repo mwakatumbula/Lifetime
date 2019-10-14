@@ -11,9 +11,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
+      theme: ThemeData(
+        canvasColor: Colors.white,
+        appBarTheme: AppBarTheme(
+          color: Colors.white,
+        ),
+      ),
       home: MyHomePage(),
-      
     );
   }
 }
@@ -29,12 +33,21 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(statusBarColor: Colors.transparent));
+        SystemUiOverlayStyle(statusBarColor: Colors.black26));
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        centerTitle: true,
+        title: Text(
+          "LIFETIME",
+          style:
+              TextStyle(color: Colors.black, fontFamily: "Title", fontSize: 30, fontWeight: FontWeight.w900),
+        ),
+      ),
       resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
-          Background(),
+          // Background(),
           MovieBuilder(),
         ],
       ),
