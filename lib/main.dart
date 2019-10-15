@@ -10,6 +10,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      builder: (BuildContext context, Widget widget) {
+        ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
+          return getErrorWidget(context, errorDetails);
+        };
+
+        return widget;
+      },
       theme: ThemeData(
         canvasColor: Colors.white,
         appBarTheme: AppBarTheme(
@@ -19,7 +26,14 @@ class MyApp extends StatelessWidget {
       home: MyHomePage(),
     );
   }
+
+  Widget getErrorWidget(BuildContext context, FlutterErrorDetails error) {
+    return Center(
+      child: Container()
+    );
+  }
 }
+
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);
@@ -39,16 +53,27 @@ class _MyHomePageState extends State<MyHomePage> {
         centerTitle: true,
         title: Text(
           "LIFETIME",
-          style:
-              TextStyle(color: Colors.black, fontFamily: "Title", fontSize: 30, fontWeight: FontWeight.w900),
+          style: TextStyle(
+              color: Colors.black,
+              fontFamily: "Title",
+              fontSize: 30,
+              fontWeight: FontWeight.w900),
         ),
       ),
-      resizeToAvoidBottomInset: false,
       body: Stack(
         children: <Widget>[
           // Background(),
           MovieBuilder(),
         ],
+      ),
+    );
+  }
+
+  Widget getErrorWidget(BuildContext context, FlutterErrorDetails error) {
+    return Center(
+      child: Text(
+        "Error appeared.",
+        style: Theme.of(context).textTheme.title.copyWith(color: Colors.white),
       ),
     );
   }

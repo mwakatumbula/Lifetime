@@ -11,7 +11,7 @@ class MovieBuilder extends StatefulWidget {
 
 class _MovieBuilderState extends State<MovieBuilder> {
   PageController controller;
-
+  int _sliderValue = 0;
   @override
   void initState() {
     super.initState();
@@ -22,7 +22,16 @@ class _MovieBuilderState extends State<MovieBuilder> {
     _movieSelector(controller);
   }
 
-  _movieSelector(index) {
+  @override
+  void dispose() {
+    controller.dispose();
+
+    super.dispose();
+  }
+
+  _movieSelector(
+    index,
+  ) {
     return AnimatedBuilder(
       animation: controller,
       builder: (context, widget) {
@@ -31,6 +40,7 @@ class _MovieBuilderState extends State<MovieBuilder> {
           value = controller.page - index;
           value = (1 - (value.abs() * 0.5) + 0.06).clamp(0.0, 1.0);
         }
+
         return Center(
           child: Stack(
             children: <Widget>[
@@ -70,6 +80,12 @@ class _MovieBuilderState extends State<MovieBuilder> {
                             builder: (_) => DetailsPage(
                                   bg: "${movies["bg"]}",
                                   index: index,
+                                  title: "${movies["title"]}",
+                                  rating: "${movies["rating"]}",
+                                  yt: "${movies["yt"]}",
+                                  cast: "${movies["cast"]}",
+                                  des: "${movies["des"]}",
+                                  year: "${movies["year"]}",
                                 ))),
                     child: Center(
                       child: ClipRRect(
@@ -102,12 +118,77 @@ class _MovieBuilderState extends State<MovieBuilder> {
   @override
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
-      PageView.builder(
-        controller: controller,
-        itemBuilder: (context, index) {
-          return _movieSelector(index);
-        },
-      ),
+      StreamBuilder<QuerySnapshot>(
+          stream: Firestore.instance.collection('movies').snapshots(),
+          builder: (context, snapshot) {
+            if (!snapshot.hasData)
+              const Text("loading");
+            else {
+              return Stack(
+                children: <Widget>[
+                  PageView.builder(
+                    itemCount: snapshot.data.documents.length,
+                    controller: controller,
+                    itemBuilder: (context, index) {
+                      return Stack(
+                        children: <Widget>[
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(bottom: 35.0, left: 35),
+                            child: Text(
+                              (index + 1).toString(),
+                              style: TextStyle(
+                                  fontSize: 250,
+                                  color: Colors.black38,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          _movieSelector(index),
+                        ],
+                      );
+                    },
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      height: 50,
+                      child: Material(
+                        child: Slider(
+                          activeColor: Colors.black,
+                          min: 0.0,
+                          max: 71.0,
+                          value: _sliderValue.toDouble(),
+                          divisions: 51,
+                          onChangeEnd: (double value) {
+                            value = value;
+                          },
+                          onChanged: (double index) {
+                            _sliderValue = controller.animateToPage(
+                                index.round(),
+                                curve: Curves.ease,
+                                duration: Duration(seconds: 5)) as int;
+
+                            index = _sliderValue as double;
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            }
+
+            return CircularProgressIndicator();
+          }),
     ]);
+  }
+
+  Widget getErrorWidget(BuildContext context, FlutterErrorDetails error) {
+    return Center(
+      child: Text(
+        "Error appeared.",
+        style: Theme.of(context).textTheme.title.copyWith(color: Colors.white),
+      ),
+    );
   }
 }

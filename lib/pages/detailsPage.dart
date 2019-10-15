@@ -8,11 +8,11 @@ class DetailsPage extends StatefulWidget {
   final String bg;
   final int index;
   final String title;
-  final double rating;
-  final int year;
+  final String rating;
+  final String year;
   final String cast;
   final String yt;
-  final String desc;
+  final String des;
 
   DetailsPage({
     Key key,
@@ -23,7 +23,7 @@ class DetailsPage extends StatefulWidget {
     this.year,
     this.cast,
     this.yt,
-    this.desc,
+    this.des,
   }) : super(key: key);
 
   @override
@@ -88,9 +88,112 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
               )
             ],
+          ),
+          Column(
+            children: <Widget>[
+              buildRow(),
+              SizedBox(
+                height: 30,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  widget.des,
+                  style: TextStyle(
+                      fontFamily: "Index",
+                      fontSize: 30,
+                      fontStyle: FontStyle.italic),
+                ),
+              )
+            ],
           )
         ],
       ),
+      bottomNavigationBar: BottomAppBar(
+        elevation: 15,
+        child: Container(
+          height: 50,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+              Container(
+                height: 50,
+                width: 40,
+                child: Icon(FontAwesomeIcons.check),
+              ),
+              Container(
+                height: 50,
+                width: 40,
+                child: Icon(FontAwesomeIcons.plus),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Row buildRow() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: <Widget>[
+        Container(
+          height: 70,
+          width: 70,
+          child: Card(
+            elevation: 5,
+            color: Colors.white70,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Icon(FontAwesomeIcons.calendarAlt),
+                Divider(
+                  height: 2,
+                ),
+                Text(widget.year)
+              ],
+            ),
+          ),
+        ),
+        Container(
+          height: 70,
+          width: 70,
+          child: Card(
+            elevation: 5,
+            color: Colors.white70,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Icon(FontAwesomeIcons.imdb),
+                Divider(
+                  height: 2,
+                ),
+                Text(widget.rating)
+              ],
+            ),
+          ),
+        ),
+        GestureDetector(
+          child: Container(
+            height: 70,
+            width: 70,
+            child: Card(
+              elevation: 5,
+              color: Colors.white70,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Icon(FontAwesomeIcons.idBadge),
+                  Divider(
+                    height: 2,
+                  ),
+                  Text("Cast")
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
