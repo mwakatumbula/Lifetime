@@ -109,7 +109,7 @@ class _MovieBuilderState extends State<MovieBuilder> {
                 return Container(
                   height: 50,
                   width: 50,
-                  child: Text("1 stream");
+                  child: Text("1 stream"),
                 );
               },
             ),
@@ -185,7 +185,7 @@ class _MovieBuilderState extends State<MovieBuilder> {
             return return Container(
                   height: 50,
                   width: 50,
-                  child: Text("2 stream");
+                  child: Text("2 stream"),
                 );
           }),
     ]);
