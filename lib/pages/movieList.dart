@@ -70,7 +70,7 @@ class _MovieBuilderState extends State<MovieBuilder> {
               stream: Firestore.instance.collection('movies').snapshots(),
               builder: (context, snapshot) {
                 DocumentSnapshot movies = snapshot.data.documents[index];
-                if (snapshot.data.documents.length > 0) {
+                if (snapshot.data.documents.length == 0) {
                   const Text("Fetching Data");
                 } else {
                   return GestureDetector(
@@ -106,7 +106,11 @@ class _MovieBuilderState extends State<MovieBuilder> {
                     ),
                   );
                 }
-                return CircularProgressIndicator();
+                return Container(
+                  height: 50,
+                  width: 50,
+                  child: Text("1 stream");
+                );
               },
             ),
           ),
@@ -178,7 +182,11 @@ class _MovieBuilderState extends State<MovieBuilder> {
               );
             }
 
-            return CircularProgressIndicator();
+            return return Container(
+                  height: 50,
+                  width: 50,
+                  child: Text("2 stream");
+                );
           }),
     ]);
   }
