@@ -160,9 +160,9 @@ class _MovieBuilderState extends State<MovieBuilder> {
                         child: Slider(
                           activeColor: Colors.black,
                           min: 0.0,
-                          max: 71.0,
+                          max: 100.0,
                           value: _sliderValue.toDouble(),
-                          divisions: 51,
+                          divisions: 100,
                           onChangeEnd: (double value) {
                             value = value;
                           },
