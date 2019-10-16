@@ -70,7 +70,7 @@ class _MovieBuilderState extends State<MovieBuilder> {
               stream: Firestore.instance.collection('movies').snapshots(),
               builder: (context, snapshot) {
                 DocumentSnapshot movies = snapshot.data.documents[index];
-                if (!snapshot.hasData) {
+                if (snapshot.data.documents.length > 0) {
                   const Text("Fetching Data");
                 } else {
                   return GestureDetector(
@@ -121,7 +121,7 @@ class _MovieBuilderState extends State<MovieBuilder> {
       StreamBuilder<QuerySnapshot>(
           stream: Firestore.instance.collection('movies').snapshots(),
           builder: (context, snapshot) {
-            if (!snapshot.hasData)
+            if (snapshot.data.documents.length > 0)
               const Text("loading");
             else {
               return Stack(
