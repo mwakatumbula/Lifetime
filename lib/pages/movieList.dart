@@ -158,11 +158,11 @@ class _MovieBuilderState extends State<MovieBuilder> {
                       height: 50,
                       child: Material(
                         child: Slider(
-                          activeColor: Colors.black,
+                          activeColor: Colors.transparent,
                           min: 0.0,
                           max: 100.0,
                           value: _sliderValue.toDouble(),
-                          divisions: 100,
+                          
                           onChangeEnd: (double value) {
                             value = value;
                           },
