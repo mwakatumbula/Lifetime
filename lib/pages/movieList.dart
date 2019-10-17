@@ -11,7 +11,7 @@ class MovieBuilder extends StatefulWidget {
 
 class _MovieBuilderState extends State<MovieBuilder> {
   PageController controller;
-  int _sliderValue = 0;
+  int _sliderValue;
   @override
   void initState() {
     super.initState();
