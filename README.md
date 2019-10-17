@@ -1,16 +1,7 @@
-# lifetime
+# LIFETIME (Still In Development)
+## Description
 
-A new Flutter project.
+This application has the list of Top 100 most rated/most popular/must-watch movies in the world. Implemented Custom scroll page effect. It also has a feature to check Cast, No. of season aired, ablity to view the trailer on YouTube.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screens
+<img src="https://github.com/Imgkl/Lifetime/blob/master/1571296727839.png" height="500"><img src="https://github.com/Imgkl/Lifetime/blob/master/1571296731592.png" height="500"><img src="https://github.com/Imgkl/Lifetime/blob/master/1571296739075.png" height="500">
