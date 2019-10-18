@@ -33,7 +33,6 @@ class DetailsPage extends StatefulWidget {
 class _DetailsPageState extends State<DetailsPage> {
   @override
   void dispose() {
-    
     super.dispose();
   }
 
@@ -97,6 +96,16 @@ class _DetailsPageState extends State<DetailsPage> {
           ),
           Column(
             children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Text(
+                  widget.title,
+                  style: TextStyle(
+                      fontFamily: "Index",
+                      fontSize: 30,
+                      fontStyle: FontStyle.italic),
+                ),
+              ),
               buildRow(),
               SizedBox(
                 height: 30,
@@ -106,7 +115,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 child: Text(
                   widget.des,
                   style: TextStyle(
-                      fontFamily: "Index",
+                      fontFamily: "title",
                       fontSize: 30,
                       fontStyle: FontStyle.italic),
                 ),
