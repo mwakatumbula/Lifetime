@@ -32,6 +32,12 @@ class DetailsPage extends StatefulWidget {
 
 class _DetailsPageState extends State<DetailsPage> {
   @override
+  void dispose() {
+    
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Colors.white,
@@ -61,7 +67,6 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
               ),
-           
               Positioned.fill(
                 child: Padding(
                   padding: const EdgeInsets.all(25.0),
