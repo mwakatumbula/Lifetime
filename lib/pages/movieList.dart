@@ -11,7 +11,7 @@ class MovieBuilder extends StatefulWidget {
 
 class _MovieBuilderState extends State<MovieBuilder> {
   PageController controller;
-  int _sliderValue;
+  int _sliderValue = 0;
   @override
   void initState() {
     super.initState();
@@ -19,13 +19,11 @@ class _MovieBuilderState extends State<MovieBuilder> {
       initialPage: 0,
       viewportFraction: 0.8,
     );
-    _movieSelector(controller);
   }
 
   @override
   void dispose() {
     controller.dispose();
-
     super.dispose();
   }
 
@@ -69,10 +67,10 @@ class _MovieBuilderState extends State<MovieBuilder> {
             child: StreamBuilder<QuerySnapshot>(
               stream: Firestore.instance.collection('movies').snapshots(),
               builder: (context, snapshot) {
-                DocumentSnapshot movies = snapshot.data.documents[index];
-                if (snapshot.data.documents.length == 0) {
+                if (snapshot.hasData == false) {
                   const Text("Fetching Data");
                 } else {
+                  DocumentSnapshot movies = snapshot.data.documents[index];
                   return GestureDetector(
                     onTap: () => Navigator.push(
                         context,
@@ -106,10 +104,9 @@ class _MovieBuilderState extends State<MovieBuilder> {
                     ),
                   );
                 }
-                return Container(
-                  height: 50,
-                  width: 50,
-                  child: Text("1 stream"),
+                return SpinKitRipple(
+                  color: Colors.black,
+                  size: 50,
                 );
               },
             ),
@@ -121,74 +118,74 @@ class _MovieBuilderState extends State<MovieBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: <Widget>[
-      StreamBuilder<QuerySnapshot>(
-          stream: Firestore.instance.collection('movies').snapshots(),
-          builder: (context, snapshot) {
-            if (snapshot.data.documents.length == 0)
-              const Text("loading");
-            else {
-              return Stack(
-                children: <Widget>[
-                  PageView.builder(
-                    itemCount: snapshot.data.documents.length,
-                    controller: controller,
-                    itemBuilder: (context, index) {
-                      return Stack(
-                        children: <Widget>[
-                          Padding(
-                            padding:
-                                const EdgeInsets.only(bottom: 35.0, left: 35),
-                            child: Text(
-                              (index + 1).toString(),
-                              style: TextStyle(
-                                  fontSize: 250,
-                                  color: Colors.black38,
-                                  fontWeight: FontWeight.bold),
+    return Stack(
+      children: <Widget>[
+        StreamBuilder<QuerySnapshot>(
+            stream: Firestore.instance.collection('movies').snapshots(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData == false)
+                const Text("loading");
+              else {
+                return Stack(
+                  children: <Widget>[
+                    PageView.builder(
+                      itemCount: snapshot.data.documents.length,
+                      controller: controller,
+                      itemBuilder: (context, index) {
+                        return Stack(
+                          children: <Widget>[
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(bottom: 35.0, left: 35),
+                              child: Text(
+                                (index + 1).toString(),
+                                style: TextStyle(
+                                    fontSize: 250,
+                                    color: Colors.black38,
+                                    fontWeight: FontWeight.bold),
+                              ),
                             ),
-                          ),
-                          _movieSelector(index),
-                        ],
-                      );
-                    },
-                  ),
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: 50,
-                      child: Material(
-                        child: Slider(
-                          activeColor: Colors.transparent,
-                          min: 0.0,
-                          max: 100.0,
-                          value: _sliderValue.toDouble(),
-                          
-                          onChangeEnd: (double value) {
-                            value = value;
-                          },
-                          onChanged: (double index) {
-                            _sliderValue = controller.animateToPage(
-                                index.round(),
-                                curve: Curves.ease,
-                                duration: Duration(seconds: 5)) as int;
+                            _movieSelector(index),
+                          ],
+                        );
+                      },
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 50,
+                        child: Material(
+                          child: Slider(
+                            activeColor: Colors.transparent,
+                            min: 0.0,
+                            max: 100.0,
+                            value: _sliderValue.toDouble(),
+                            onChangeEnd: (double value) {
+                              value = value;
+                            },
+                            onChanged: (double index) {
+                              _sliderValue = controller.animateToPage(
+                                  index.round(),
+                                  curve: Curves.ease,
+                                  duration: Duration(seconds: 1)) as int;
 
-                            index = _sliderValue as double;
-                          },
+                              index = _sliderValue as double;
+                            },
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                ],
-              );
-            }
-
-            return Container(
-                  height: 50,
-                  width: 50,
-                  child: Text("2 stream"),
+                  ],
                 );
-          }),
-    ]);
+              }
+
+              return SpinKitRipple(
+                color: Colors.black,
+                size: 50,
+              );
+            }),
+      ],
+    );
   }
 
   Widget getErrorWidget(BuildContext context, FlutterErrorDetails error) {

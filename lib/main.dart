@@ -10,13 +10,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      builder: (BuildContext context, Widget widget) {
-        ErrorWidget.builder = (FlutterErrorDetails errorDetails) {
-          return getErrorWidget(context, errorDetails);
-        };
-
-        return widget;
-      },
       theme: ThemeData(
         canvasColor: Colors.white,
         appBarTheme: AppBarTheme(
@@ -28,12 +21,9 @@ class MyApp extends StatelessWidget {
   }
 
   Widget getErrorWidget(BuildContext context, FlutterErrorDetails error) {
-    return Center(
-      child: Container()
-    );
+    return Center(child: Container());
   }
 }
-
 
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key}) : super(key: key);

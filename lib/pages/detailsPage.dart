@@ -61,6 +61,7 @@ class _DetailsPageState extends State<DetailsPage> {
                   ),
                 ),
               ),
+           
               Positioned.fill(
                 child: Padding(
                   padding: const EdgeInsets.all(25.0),
