@@ -66,7 +66,7 @@ class _MovieBuilderState extends State<MovieBuilder> {
             child: StreamBuilder<QuerySnapshot>(
               stream: Firestore.instance.collection('movies').snapshots(),
               builder: (context, snapshot) {
-                if (snapshot.hasData == false) {
+                if (snapshot.data.documents.length == 0){
                   const Text("Fetching Data");
                 } else {
                   DocumentSnapshot movies = snapshot.data.documents[index];
@@ -122,7 +122,7 @@ class _MovieBuilderState extends State<MovieBuilder> {
         StreamBuilder<QuerySnapshot>(
             stream: Firestore.instance.collection('movies').snapshots(),
             builder: (context, snapshot) {
-              if (snapshot.hasData == false)
+              if (snapshot.data.documents.length == 0)
                 const Text("loading");
               else {
                 return Stack(
