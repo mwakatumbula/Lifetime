@@ -10,6 +10,7 @@ class MovieBuilder extends StatefulWidget {
 }
 
 class _MovieBuilderState extends State<MovieBuilder> {
+  final int _sliderValue; 
   PageController controller;
   @override
   void initState() {
@@ -66,7 +67,7 @@ class _MovieBuilderState extends State<MovieBuilder> {
             child: StreamBuilder<QuerySnapshot>(
               stream: Firestore.instance.collection('movies').snapshots(),
               builder: (context, snapshot) {
-                if (snapshot.data.documents.length == 0){
+                if (!snapshot.hasData){
                   const Text("Fetching Data");
                 } else {
                   DocumentSnapshot movies = snapshot.data.documents[index];
@@ -122,13 +123,13 @@ class _MovieBuilderState extends State<MovieBuilder> {
         StreamBuilder<QuerySnapshot>(
             stream: Firestore.instance.collection('movies').snapshots(),
             builder: (context, snapshot) {
-              if (snapshot.data.documents.length == 0)
+              if (!snapshot.hasData)
                 const Text("loading");
               else {
                 return Stack(
                   children: <Widget>[
                     PageView.builder(
-                      physics: BouncingScrollPhysics(),
+                    //  physics: BouncingScrollPhysics(),
                       itemCount: snapshot.data.documents.length,
                       controller: controller,
                       itemBuilder: (context, index) {
@@ -149,6 +150,31 @@ class _MovieBuilderState extends State<MovieBuilder> {
                           ],
                         );
                       },
+                    ),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        height: 50,
+                        child: Material(
+                          child: Slider(
+                            activeColor: Colors.transparent,
+                            min: 0.0,
+                            max: 100.0,
+                            value: _sliderValue.toDouble(),
+                            onChangeEnd: (double value) {
+                              value = value;
+                            },
+                            onChanged: (double index) {
+                              _sliderValue = controller.animateToPage(
+                                  index.round(),
+                                  curve: Curves.ease,
+                                  duration: Duration(seconds: 1)) as int;
+
+                              index = _sliderValue as double;
+                            },
+                          ),
+                        ),
+                      ),
                     ),
                   ],
                 );
