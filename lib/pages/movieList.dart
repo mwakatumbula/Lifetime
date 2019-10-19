@@ -129,7 +129,7 @@ class _MovieBuilderState extends State<MovieBuilder> {
                 return Stack(
                   children: <Widget>[
                     PageView.builder(
-                    //  physics: BouncingScrollPhysics(),
+                   physics: BouncingScrollPhysics(),
                       itemCount: snapshot.data.documents.length,
                       controller: controller,
                       itemBuilder: (context, index) {
