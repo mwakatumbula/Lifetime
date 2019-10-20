@@ -38,23 +38,23 @@ class _DetailsPageState extends State<DetailsPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
-      // backgroundColor: Colors.white,
       body: ListView(
         children: <Widget>[
           Stack(
             children: <Widget>[
               Container(
-                transform: Matrix4.translationValues(0.0, -50.0, 0.0),
+                transform: Matrix4.translationValues(0.0, -90.0, 0.0),
                 child: Hero(
                   tag: "movie${(widget.index)}",
                   child: ClipShadowPath(
                     clipper: CircularClipper(),
-                    shadow: Shadow(blurRadius: 20.0),
+                    shadow: Shadow(blurRadius: 50.0),
                     child: ClipPath(
                       child: CachedNetworkImage(
                         imageUrl: widget.bg,
-                        height: 500,
+                        height: screenHeight * 0.5,
                         width: double.infinity,
                         fit: BoxFit.cover,
                         placeholder: (context, url) => SpinKitRipple(
@@ -68,13 +68,14 @@ class _DetailsPageState extends State<DetailsPage> {
               ),
               Positioned.fill(
                 child: Padding(
-                  padding: const EdgeInsets.all(25.0),
+                  padding: const EdgeInsets.only(bottom: 65.0),
                   child: Align(
                       alignment: Alignment.bottomCenter,
                       child: RawMaterialButton(
                         elevation: 10,
                         child: Container(
-                          margin: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 10),
                           child: Container(
                             margin: EdgeInsets.only(right: 3, bottom: 3),
                             child: Icon(
@@ -97,7 +98,7 @@ class _DetailsPageState extends State<DetailsPage> {
           Column(
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.only(bottom: 10.0),
                 child: Text(
                   widget.title,
                   style: TextStyle(
@@ -107,16 +108,13 @@ class _DetailsPageState extends State<DetailsPage> {
                 ),
               ),
               buildRow(),
-              SizedBox(
-                height: 30,
-              ),
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Text(
                   widget.des,
                   style: TextStyle(
                       fontFamily: "title",
-                      fontSize: 30,
+                      fontSize: 20,
                       fontStyle: FontStyle.italic),
                 ),
               )

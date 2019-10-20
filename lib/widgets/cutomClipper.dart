@@ -16,7 +16,7 @@ class CircularClipper extends CustomClipper<Path> {
       size.width - size.width / 4,
       size.height,
       size.width,
-      size.height - 50,
+      size.height -50,
     );
     path.lineTo(size.width, 0.0);
     path.close();

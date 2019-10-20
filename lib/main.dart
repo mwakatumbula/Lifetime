@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Stack(
         children: <Widget>[
-          // Background(),
+          
           MovieBuilder(),
         ],
       ),
